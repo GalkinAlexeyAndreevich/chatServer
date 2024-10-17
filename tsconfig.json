@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",         // Use "ESNext" for ES module syntax
+    "target": "ESNext",         // Adjust according to your needs
+    "moduleResolution": "Node",
+    "outDir": "./dist",         // Output directory for compiled files
+		"rootDir": "./src", 
+    "esModuleInterop": true,    // Enables emit interoperability between CommonJS and ES Modules
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+    "strict": true               // Optional: Enable strict type-checking options
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"],
+	"ts-node": {
+		"esm": true,
+		"experimentalSpecifierResolution": "node",
+	}
+}
