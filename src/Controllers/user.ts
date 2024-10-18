@@ -1,5 +1,7 @@
-import type { Request, Response } from "express";
+import type { Request, RequestHandler, Response } from "express";
 import { userServices } from "../Services/index.js";
+import multer from 'multer';
+
 export const getUsers = async (res:Response) => {
   let users = await userServices.getUsers();
   res.send(users);
@@ -28,3 +30,25 @@ export const getUserOnLogin = async (req:Request, res:Response) => {
   res.send(user);
 };
 
+const storage = multer.memoryStorage(); // Используем память для хранения загруженных файлов
+const upload = multer({ storage });
+export const updateImageOnUser: RequestHandler = async (req: Request, res: Response): Promise<void> => {
+  const userId = parseInt(req.params.userId); 
+  const photoBuffer = req.file?.buffer;
+
+  if (!photoBuffer) {
+    res.status(400).json({ error: 'No photo uploaded' });
+    return; 
+  }
+
+  try {
+    await userServices.updateImageOnUser(userId, photoBuffer);
+    res.status(200).json({ message: 'Image updated successfully' });
+  } catch (error) {
+    console.error(error); 
+    res.status(500).json({ error: 'Failed to update image' }); 
+  }
+};
+
+// Используем middleware upload.single в маршруте
+export const uploadUserPhoto = upload.single('photo');

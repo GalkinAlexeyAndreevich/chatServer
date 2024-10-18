@@ -24,7 +24,7 @@ export const Dialog = sequelize.define('dialog', {
     dialog_name: { type: DataTypes.STRING(70) },
     id_creator: { type: DataTypes.INTEGER, references: { model: User, key: 'id_user' } },
 });
-export const Message = sequelize.define('messageC', {
+export const Message = sequelize.define('message', {
     id_message: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     id_dialog: { type: DataTypes.INTEGER, references: { model: Dialog, key: 'id_dialog' } },
     id_sender: { type: DataTypes.INTEGER, references: { model: User, key: 'id_user' } },
@@ -32,7 +32,7 @@ export const Message = sequelize.define('messageC', {
     message_time: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     isRead: { type: DataTypes.BOOLEAN, defaultValue: false },
     isDeleted: { type: DataTypes.BOOLEAN, defaultValue: false },
-});
+}, { tableName: 'messageC' });
 export const RoleUser = sequelize.define('role_user', {
     id_role: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     role_name: { type: DataTypes.STRING(50), allowNull: false },

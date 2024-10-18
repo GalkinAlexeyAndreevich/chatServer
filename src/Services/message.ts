@@ -16,6 +16,6 @@ export const addMessage = async (id_dialog:number,id_sender:number,content:strin
   return await sequelize.query(
     `
     exec addMessage ${id_dialog},${id_sender},${JSON.stringify(content)};
-    `.replace(/\"/g, "'")
+    `
   );
 };

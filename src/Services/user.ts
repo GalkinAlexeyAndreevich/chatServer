@@ -16,3 +16,14 @@ export const getUser = async (id:number) => {
 export const getUserOnLogin = async (login_user:string) => {
   return await User.findOne({ where: { login_user } });
 };
+
+export const updateImageOnUser = async (userId:number, photoBuffer:Buffer) => {
+  try {
+    await User.update(
+      { photo: photoBuffer },
+      { where: { id_user: userId } }
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
