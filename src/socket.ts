@@ -3,7 +3,13 @@ import { Server as HttpServer } from 'http'; // Импортируем HttpServe
 let io: Server;
 
 export function init(server: HttpServer): Server {
-  io = new Server(server); // Инициализация Socket.IO с HTTP-сервером
+  io = new Server(server,{
+    cors: {
+      origin: 'http://localhost:5173', // Укажите ваш клиентский адрес
+      methods: ['GET', 'POST'],
+      credentials: true,
+    },
+  }); // Инициализация Socket.IO с HTTP-сервером
   return io;
 }
 

@@ -1,5 +1,5 @@
 import { User } from "../Database/models.js";
-
+import type { IUser } from "../interfaces/index.js";
 
 export const getUsers = async () => {
   return await User.findAll();
@@ -16,6 +16,14 @@ export const getUser = async (id:number) => {
 export const getUserOnLogin = async (login_user:string) => {
   return await User.findOne({ where: { login_user } });
 };
+export const signIn = async(login_user:string, password_user:string):Promise<IUser | null> =>{
+  return await User.findOne({
+    where:{
+      login_user,
+      password_user
+    }
+  }) as IUser | null
+}
 
 export const updateImageOnUser = async (userId:number, photoBuffer:Buffer) => {
   try {

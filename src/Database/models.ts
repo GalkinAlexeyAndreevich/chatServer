@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import {sequelize} from './index.js'; // Ваше подключение к базе данных
+import {sequelize} from './index.js'; 
 
 export const User = sequelize.define('users', {
   id_user: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },

@@ -27,7 +27,7 @@ export const getDialogOnUser = async (id: number) => {
       {
         model: Message,
         limit: 1,
-        order: [['message_time', 'DESC']],
+        order: [['message_time', 'DESC'], ['id_message', 'DESC']],
       },
     ],
     where: {
