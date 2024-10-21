@@ -1,6 +1,9 @@
 import { Op } from "sequelize";
 import { sequelize } from "../Database/index.js";
-import { Dialog, Message, User, UsersDialog } from "../Database/models.js";
+import { Dialog } from "../Database/models/dialog.js";
+import { UsersDialog } from "../Database/models/usersDialog.js";
+import { User } from "../Database/models/user.js";
+import { Message } from "../Database/models/message.js";
 export const getDialogs = async () => {
     return await Dialog.findAll();
 };
@@ -8,7 +11,7 @@ export const addDialogForTwo = async (id_first_user, id_second_user) => {
     console.log(id_first_user, id_second_user);
     return await sequelize.query(`
     exec addDialogForTwo ${id_first_user},${id_second_user};
-    `);
+  `);
 };
 export const getDialog = async (id) => {
     return await Dialog.findOne({ where: { id_dialog: id } });
@@ -23,12 +26,13 @@ export const getDialogOnUser = async (id) => {
             {
                 model: Message,
                 limit: 1,
-                order: [['message_time', 'DESC']],
+                order: [['message_time', 'DESC'], ['id_message', 'DESC']],
             },
         ],
         where: {
             id_dialog: {
-                [Op.in]: sequelize.literal(`(SELECT id_dialog FROM usersDialog WHERE id_user = ${id})`), // Получаем диалоги, в которых есть запрашиваемый пользователь
+                // Получаем диалоги, в которых есть запрашиваемый пользователь
+                [Op.in]: sequelize.literal(`(SELECT id_dialog FROM usersDialog WHERE id_user = ${id})`),
             },
         },
     });

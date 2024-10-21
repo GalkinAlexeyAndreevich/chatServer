@@ -1,6 +1,9 @@
 import { Op } from "sequelize";
 import { sequelize } from "../Database/index.js";
-import { Dialog, Message, User, UsersDialog } from "../Database/models.js";
+import { Dialog } from "../Database/models/dialog.js";
+import { UsersDialog } from "../Database/models/usersDialog.js";
+import { User } from "../Database/models/user.js";
+import { Message } from "../Database/models/message.js";
 export const getDialogs = async () => {
   return await Dialog.findAll();
 };
@@ -11,7 +14,6 @@ export const addDialogForTwo = async (id_first_user:number,id_second_user:number
     exec addDialogForTwo ${id_first_user},${id_second_user};
   `);
 };
-
 
 export const getDialog = async (id:number) => {
   return await Dialog.findOne({ where: { id_dialog: id } });

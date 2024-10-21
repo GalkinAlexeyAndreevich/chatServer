@@ -1,4 +1,4 @@
-import { User } from "../Database/models.js";
+import { User } from "../Database/models/user.js";
 import type { IUser } from "../interfaces/index.js";
 
 export const getUsers = async () => {

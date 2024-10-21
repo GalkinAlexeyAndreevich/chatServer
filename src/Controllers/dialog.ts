@@ -14,7 +14,6 @@ export const addDialogsForTwo = async (req:Request, res:Response) => {
   res.send(post);
 };
 
-
 export const getDialog = async (req:Request, res:Response) => {
   let { id } = req.params;
   let dialog = await dialogServices.getDialog(Number(id));

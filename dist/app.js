@@ -2,6 +2,7 @@ import express from "express";
 import { sequelize } from "./Database/index.js";
 import cors from "cors";
 import http from 'http';
+import "dotenv/config";
 import { appRouter } from "./Routers/index.js";
 import { init as initSocket } from './socket.js';
 import { addUser, removeUser } from "./activeUsers.js";
@@ -9,7 +10,10 @@ const app = express();
 const server = http.createServer(app); // Создаем HTTP-сервер
 // Инициализируем Socket.IO
 const io = initSocket(server);
-const port = 4444;
+const port = process.env.PORT;
+if (!port) {
+    throw new Error("PORT is not defined in the environment variables.");
+}
 app.use(cors());
 // app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", "*");
@@ -38,10 +42,10 @@ io.on('connection', (socket) => {
         // Привязать сокет к идентификатору пользователя
         socket.join(`user_${userId}`);
         addUser(userId, socket);
-        // Обработка других событий
-        socket.on('message', (msg) => {
-            console.log(`Message from user ${userId}: ${msg}`);
-        });
+        // // Обработка других событий
+        // socket.on('message', (msg) => {
+        //   console.log(`Message from user ${userId}: ${msg}`);
+        // });
         socket.on('disconnect', () => {
             console.log(`User ${userId} disconnected`);
             removeUser(userId);

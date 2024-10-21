@@ -1,4 +1,4 @@
-import { UsersDialog } from "../Database/models.js";
+import { UsersDialog } from "../Database/models/usersDialog";
 export const getUsersDialogs = async () => {
     return await UsersDialog.findAll();
 };

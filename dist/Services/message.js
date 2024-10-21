@@ -1,5 +1,5 @@
 import { sequelize } from "../Database/index.js";
-import { Message } from "../Database/models.js";
+import { Message } from "../Database/models/message.js";
 export const getMessages = async () => {
     return await Message.findAll();
 };

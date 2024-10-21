@@ -1,7 +1,13 @@
 import { Server } from 'socket.io';
 let io;
 export function init(server) {
-    io = new Server(server); // Инициализация Socket.IO с HTTP-сервером
+    io = new Server(server, {
+        cors: {
+            origin: 'http://localhost:5173', // Укажите ваш клиентский адрес
+            methods: ['GET', 'POST'],
+            credentials: true,
+        },
+    }); // Инициализация Socket.IO с HTTP-сервером
     return io;
 }
 export function getIo() {

@@ -4,6 +4,7 @@ import cors from "cors";
 import http from 'http';
 import "dotenv/config";
 import { appRouter } from "./Routers/index.js";
+import './Database/associations.js'; 
 
 import { init as initSocket } from './socket.js';
 import { addUser, removeUser } from "./activeUsers.js";
@@ -50,10 +51,10 @@ io.on('connection', (socket) => {
     // Привязать сокет к идентификатору пользователя
     socket.join(`user_${userId}`);
     addUser(userId, socket);
-    // Обработка других событий
-    socket.on('message', (msg) => {
-      console.log(`Message from user ${userId}: ${msg}`);
-    });
+    // // Обработка других событий
+    // socket.on('message', (msg) => {
+    //   console.log(`Message from user ${userId}: ${msg}`);
+    // });
 
     socket.on('disconnect', () => {
       console.log(`User ${userId} disconnected`);
