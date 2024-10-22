@@ -15,8 +15,10 @@ export const addMessage = async (id_dialog:number,id_sender:number,content:strin
   console.log(id_dialog,id_sender,content);
   const result =  await sequelize.query(
     `
-    exec addMessage ${id_dialog},${id_sender},${JSON.stringify(content)};
+    select * from add_message (${id_dialog},${id_sender},'${content}');
     `
   );
+  console.log("Результат выполнения", result[0]);
+  
   return result[0] as MessageClass[];
 };

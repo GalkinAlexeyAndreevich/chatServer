@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { usersDialogServices } from "../Services/index.js";
-export const getUsersDialogs = async (res:Response) => {
+export const getUsersDialogs = async (req:Request,res:Response) => {
     let users = await usersDialogServices.getUsersDialogs();
     res.send(users);
   };

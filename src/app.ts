@@ -9,7 +9,7 @@ import './Database/associations.js';
 import { init as initSocket } from './socket.js';
 import { addUser, removeUser } from "./activeUsers.js";
 const app = express();
-const server = http.createServer(app); // Создаем HTTP-сервер
+const server = http.createServer(app);
 
 // Инициализируем Socket.IO
 const io = initSocket(server);

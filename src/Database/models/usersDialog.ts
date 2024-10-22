@@ -13,8 +13,8 @@ export class UsersDialogClass extends Model<
   declare id_role: number;
 }
 
-export const UsersDialog = sequelize.define<UsersDialogClass>('usersDialog', {
+export const UsersDialog = sequelize.define<UsersDialogClass>('UsersDialog', {
   id_dialog: { type: DataTypes.INTEGER, primaryKey: true, references: { model: Dialog, key: 'id_dialog' } },
   id_user: { type: DataTypes.INTEGER, primaryKey: true, references: { model: User, key: 'id_user' } },
   id_role: { type: DataTypes.INTEGER, allowNull: false, references: { model: RoleUser, key: 'id_role' } },
-});
+},{tableName:'users_dialog'});

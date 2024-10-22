@@ -11,7 +11,7 @@ export const getDialogs = async () => {
 export const addDialogForTwo = async (id_first_user:number,id_second_user:number) => {
   console.log(id_first_user,id_second_user);
   return await sequelize.query(`
-    exec addDialogForTwo ${id_first_user},${id_second_user};
+    CALL addDialogForTwo ${id_first_user},${id_second_user};
   `);
 };
 
@@ -24,10 +24,12 @@ export const getDialogOnUser = async (id: number) => {
     include: [
       {
         model: UsersDialog,
+        as:"usersDialog",
         include: [{model: User}],
       },
       {
         model: Message,
+        as:"messages",
         limit: 1,
         order: [['message_time', 'DESC'], ['id_message', 'DESC']],
       },
@@ -35,7 +37,7 @@ export const getDialogOnUser = async (id: number) => {
     where: {
       id_dialog: {
         // Получаем диалоги, в которых есть запрашиваемый пользователь
-        [Op.in]: sequelize.literal(`(SELECT id_dialog FROM usersDialog WHERE id_user = ${id})`), 
+        [Op.in]: sequelize.literal(`(SELECT id_dialog FROM users_dialog WHERE id_user = ${id})`), 
       },
     },
   });
