@@ -11,7 +11,7 @@ export const getDialogs = async () => {
 export const addDialogForTwo = async (id_first_user:number,id_second_user:number) => {
   console.log(id_first_user,id_second_user);
   return await sequelize.query(`
-    CALL addDialogForTwo ${id_first_user},${id_second_user};
+    CALL add_dialog_for_two (${id_first_user},${id_second_user});
   `);
 };
 
